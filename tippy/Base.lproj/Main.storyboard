@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Tip Calculator-->
+        <!--Tippy-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="tippy" customModuleProvider="target" sceneMemberID="viewController">
@@ -278,14 +278,26 @@
                             <outletCollection property="gestureRecognizers" destination="IL8-En-6gl" appends="YES" id="pBq-Cm-cad"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" title="Tip Calculator" id="MDn-IX-VWc">
-                        <barButtonItem key="rightBarButtonItem" title="Setting" style="plain" id="ATj-8H-F51">
+                    <navigationItem key="navigationItem" title="Tippy" id="MDn-IX-VWc">
+                        <barButtonItem key="backBarButtonItem" title=" " id="6hX-QD-VJJ"/>
+                        <barButtonItem key="rightBarButtonItem" title="%" style="plain" id="ATj-8H-F51">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <segue destination="nx0-cd-A1e" kind="show" id="Cqy-u0-PQT"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="billField" destination="QuC-zG-uig" id="ymo-dU-Sca"/>
                         <outlet property="tipControl" destination="BNw-vn-3iK" id="qRJ-LL-pDi"/>
+                        <outlet property="tipLabel1" destination="BGf-Cf-mrc" id="skK-wA-6Pn"/>
+                        <outlet property="tipLabel2" destination="rmW-RB-22j" id="8pv-Fz-Jom"/>
+                        <outlet property="tipLabel3" destination="bHl-cC-duY" id="Gdo-iW-UKs"/>
+                        <outlet property="tipLabel4" destination="BP9-9D-WRr" id="hbj-yR-lN5"/>
+                        <outlet property="totalLabel1" destination="wXv-c3-GOS" id="amg-lT-x7a"/>
+                        <outlet property="totalLabel2" destination="z79-FN-I1P" id="SOk-6y-Nvj"/>
+                        <outlet property="totalLabel3" destination="aTy-eX-A17" id="LgD-Il-cA7"/>
+                        <outlet property="totalLabel4" destination="bjN-Is-fLA" id="Th3-ue-0JZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -297,6 +309,48 @@
             </objects>
             <point key="canvasLocation" x="909.60000000000002" y="-564.46776611694156"/>
         </scene>
+        <!--Setting View Controller-->
+        <scene sceneID="FEM-Oj-aQl">
+            <objects>
+                <viewController id="nx0-cd-A1e" customClass="SettingViewController" customModule="tippy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mia-ul-hdE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tip Percentage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YcC-Kh-Lnd">
+                                <rect key="frame" x="111.5" y="72" width="152.5" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="%" textAlignment="center" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JY0-MN-v9u">
+                                <rect key="frame" x="163" y="110" width="49" height="79"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="66"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad" keyboardAppearance="light"/>
+                                <connections>
+                                    <action selector="calculateTip:" destination="BYZ-38-t0r" eventType="editingChanged" id="xKy-yK-Ix6"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.77254901960784317" blue="0.53333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="JY0-MN-v9u" firstAttribute="top" secondItem="YcC-Kh-Lnd" secondAttribute="bottom" constant="8" id="b8j-eG-GvN"/>
+                            <constraint firstItem="YcC-Kh-Lnd" firstAttribute="centerX" secondItem="mia-ul-hdE" secondAttribute="centerX" id="cBv-K9-6lc"/>
+                            <constraint firstItem="JY0-MN-v9u" firstAttribute="centerX" secondItem="mia-ul-hdE" secondAttribute="centerX" id="cDe-sp-ohj"/>
+                            <constraint firstItem="YcC-Kh-Lnd" firstAttribute="top" secondItem="1h0-hE-iOS" secondAttribute="top" constant="8" id="kDh-Vb-XH3"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="1h0-hE-iOS"/>
+                    </view>
+                    <connections>
+                        <outlet property="tipPercentageField" destination="JY0-MN-v9u" id="tD3-3d-65j"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="99f-yh-rf5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1664.8" y="-564.46776611694156"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="NF6-lx-CTG">
             <objects>
@@ -305,7 +359,14 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8fR-Pd-N4r">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" red="1" green="0.74901960784313726" blue="0.48627450980392156" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="23"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="20"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
