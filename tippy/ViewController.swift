@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var billField: UITextField!
     @IBOutlet weak var tipControl: UISegmentedControl!
     
+    @IBOutlet weak var billFieldBackgroundViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var tipLabel1: UILabel!
     @IBOutlet weak var tipLabel2: UILabel!
     @IBOutlet weak var tipLabel3: UILabel!
@@ -45,6 +46,23 @@ class ViewController: UIViewController {
             tipControl.setTitle("Custom", forSegmentAt: tipPercentages.count-1)
         }
         
+        if billField.text == "" {
+            tipControl.isHidden = true
+        } else {
+            billFieldBackgroundViewHeightConstraint.constant = 170
+            tipControl.isHidden = false
+        }
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if billField.text == "" {
+            self.billFieldBackgroundViewHeightConstraint.constant = 400
+            UIView.animate(withDuration: 1) {
+                self.billField.becomeFirstResponder()
+                self.view.layoutIfNeeded()
+            }
+        }
     }
     
     @IBAction func onTap(_ sender: Any) {
@@ -56,11 +74,19 @@ class ViewController: UIViewController {
         // Get the bill amount
         let bill = Double(billField.text!) ?? 0
         
+        if billFieldBackgroundViewHeightConstraint.constant == 400 {
+            self.billFieldBackgroundViewHeightConstraint.constant = 170
+            UIView.animate(withDuration: 1) {
+                self.tipControl.isHidden = false
+                self.view.layoutIfNeeded()
+            }
+        
+        }
+        
+        
         // Calculate tip and total
-        
-        
         var tip = 0.0
-        var tipPercentage = tipPercentages[tipControl.selectedSegmentIndex]
+        let tipPercentage = tipPercentages[tipControl.selectedSegmentIndex]
         tip = bill * tipPercentage
         if tipPercentage == 0 {
             let alert = UIAlertController(title: "Tip Percentage is not set",
