@@ -27,41 +27,40 @@ class ViewController: UIViewController {
     var totalLabels: [UILabel]!
     var tipPercentages = [0.15, 0.18, 0.2, 0.0]
     var previousSegmentIndex = 0
+    var viewJustLoaded = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tipLabels = [tipLabel1, tipLabel2, tipLabel3, tipLabel4]
         totalLabels = [totalLabel1, totalLabel2, totalLabel3, totalLabel4]
+        viewJustLoaded = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         let customTipPercentage = UserDefaults.standard.double(forKey: "customTipPercentage")
         let ratio = (customTipPercentage/100.0)
-        if ratio > 0 {
-            tipPercentages[tipPercentages.count-1] = ratio
-            tipControl.setTitle(String(format: "%.0f%%", customTipPercentage), forSegmentAt: tipPercentages.count-1)
-            self.calculateTip(self)
-        } else {
-            tipControl.setTitle("Custom", forSegmentAt: tipPercentages.count-1)
+        if tipPercentages[tipPercentages.count-1] != ratio {
+            if ratio > 0 {
+                tipPercentages[tipPercentages.count-1] = ratio
+                tipControl.setTitle(String(format: "%.0f%%", customTipPercentage), forSegmentAt: tipPercentages.count-1)
+                self.calculateTip(self)
+            } else {
+                tipControl.setTitle("Custom", forSegmentAt: tipPercentages.count-1)
+            }
         }
-        
-        if billField.text == "" {
-            tipControl.isHidden = true
-        } else {
-            billFieldBackgroundViewHeightConstraint.constant = 170
-            tipControl.isHidden = false
-        }
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if billField.text == "" {
+        if viewJustLoaded {
+            tipControl.isHidden = true
             self.billFieldBackgroundViewHeightConstraint.constant = 400
             UIView.animate(withDuration: 1) {
+                self.tipControl.alpha = 0
                 self.billField.becomeFirstResponder()
                 self.view.layoutIfNeeded()
             }
+            viewJustLoaded = false
         }
     }
     
@@ -76,11 +75,11 @@ class ViewController: UIViewController {
         
         if billFieldBackgroundViewHeightConstraint.constant == 400 {
             self.billFieldBackgroundViewHeightConstraint.constant = 170
+            self.tipControl.isHidden = false
             UIView.animate(withDuration: 1) {
-                self.tipControl.isHidden = false
+                self.tipControl.alpha = 1
                 self.view.layoutIfNeeded()
             }
-        
         }
         
         
